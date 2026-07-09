@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: twincare-db
+    environment:
+      POSTGRES_DB: twincare
+      POSTGRES_USER: twincare
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-twincare_dev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U twincare -d twincare"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    container_name: twincare-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://twincare:${POSTGRES_PASSWORD:-twincare_dev}@postgres:5432/twincare
+      FIREWORKS_API_KEY: ${FIREWORKS_API_KEY}
+      JWT_SECRET: ${JWT_SECRET:-twincare-hackathon-secret-change-in-prod}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:5173}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+  # Frontend - uncomment when frontend files are added
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   platform: linux/amd64
+  #   container_name: twincare-frontend
+  #   ports:
+  #     - "3000:80"
+  #   depends_on:
+  #     - backend
+
+volumes:
+  pgdata:
+  uploads:

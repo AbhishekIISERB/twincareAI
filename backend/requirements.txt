@@ -1,0 +1,33 @@
+# Web framework
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.18
+
+# Database
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+
+# Auth
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Validation
+pydantic[email-validator]==2.10.3
+
+# Config
+python-dotenv==1.0.1
+
+# OCR & PDF
+pdf2image==1.17.0
+Pillow==11.0.0
+pytesseract==0.3.13
+
+# AI / ML - CPU torch for Docker (ROCm used in Jupyter notebook)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+numpy
+scikit-learn
+shap
+
+# HTTP client for Fireworks API
+httpx
