@@ -654,7 +654,7 @@ async function handleFileUpload(file) {
         // Start polling report extraction status
         pollReportStatus(data.report_id, file.name);
     } catch (err) {
-        alert(err.message);
+        alert("Due to hosting incapabilities, PDF upload is not possible for this live demo. Please manually input your data on the left.");
         resetUploadUI();
     }
 }
@@ -688,7 +688,7 @@ async function pollReportStatus(reportId, filename) {
                 `;
             } else if (data.status === "failed") {
                 clearInterval(interval);
-                alert("Biomarker extraction failed. Please ensure the PDF is a readable blood panel.");
+                alert("Due to hosting incapabilities, PDF upload is not possible for this live demo. Please manually input your data on the left.");
                 resetUploadUI();
             }
         } catch (err) {
