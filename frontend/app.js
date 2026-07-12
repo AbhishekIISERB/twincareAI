@@ -533,6 +533,12 @@ function updatePredictionTile(pred) {
     }
 
     document.getElementById("risk-threshold-val").textContent = pred.threshold_used || "0.15";
+
+    if (pred.shap_explanation) {
+        renderShapWaterfall(pred.shap_explanation);
+    } else {
+        document.getElementById("shap-chart-container").innerHTML = "<p class='text-center text-xs text-muted py-4' style='color:var(--lt-muted);'>No explanation available.</p>";
+    }
 }
 
 function resetPredictionTile() {
@@ -544,35 +550,15 @@ function resetPredictionTile() {
     desc.textContent = "Upload a blood report to calculate risk.";
     desc.className = "risk-chip";
     document.getElementById("risk-threshold-val").textContent = "--";
+    document.getElementById("shap-chart-container").innerHTML = "<p class='text-center text-xs text-muted py-4' style='color:var(--lt-muted);'>Generate a prediction to see risk impact.</p>";
 }
-
-// 6. SHAP WATERFALL INTERACTIVE MODAL
-const shapModal = document.getElementById("shap-modal");
-const viewShapBtn = document.getElementById("view-shap-btn");
-const closeModalBtn = document.getElementById("close-modal-btn");
-const closeModalFooterBtn = document.getElementById("close-modal-footer-btn");
-const shapContainer = document.getElementById("shap-chart-container");
-
-viewShapBtn.addEventListener("click", () => {
-    if (!currentPrediction || !currentPrediction.shap_explanation) {
-        alert("No SHAP explainability model cached for this profile. Please generate a prediction first.");
-        return;
-    }
-    renderShapWaterfall(currentPrediction.shap_explanation);
-    shapModal.classList.remove("hidden");
-});
-
-function hideModal() {
-    shapModal.classList.add("hidden");
-}
-closeModalBtn.addEventListener("click", hideModal);
-closeModalFooterBtn.addEventListener("click", hideModal);
 
 // Render horizontal bar graphs for SHAP values
 function renderShapWaterfall(shapData) {
     const baseValue = shapData.shap_values.base_value || 0;
     document.getElementById("shap-base-val").textContent = (baseValue * 100).toFixed(1) + "%";
-
+    
+    const shapContainer = document.getElementById("shap-chart-container");
     shapContainer.innerHTML = "";
 
     const items = shapData.feature_importance || [];

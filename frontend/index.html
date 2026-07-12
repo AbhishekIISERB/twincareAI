@@ -244,7 +244,10 @@
                 <span style="font-size:0.7rem; color:var(--lt-muted); margin-left:4px; font-variant-numeric: tabular-nums;">Latency: <span id="amd-latency" style="font-weight:700;color:#333;">--</span>ms</span>
             </div>
             <button id="download-pdf-btn" class="dh-icon-btn dh-icon-btn--blue" title="Download Medical Report"><i class="fa-solid fa-file-pdf"></i></button>
-            <button id="edit-intake-btn" class="dh-icon-btn" title="Edit Health Profile"><i class="fa-solid fa-pen-to-square"></i></button>
+            <div style="display: flex; flex-direction: column; align-items: center; margin: 0 4px;">
+                <button id="edit-intake-btn" class="dh-icon-btn" title="Edit Health Profile"><i class="fa-solid fa-pen-to-square"></i></button>
+                <span style="font-size: 0.65rem; color: var(--lt-muted); margin-top: 4px; cursor: pointer; font-weight: 600;" onclick="document.getElementById('edit-intake-btn').click()">Manual Entry</span>
+            </div>
             <button id="copilot-toggle-btn" class="dh-icon-btn dh-icon-btn--purple" title="Health Copilot"><i class="fa-solid fa-robot"></i></button>
             <button id="logout-btn" class="dh-icon-btn dh-icon-btn--red" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
@@ -259,12 +262,6 @@
             <div class="hc">
                 <div class="hc-row-space">
                     <h2 class="hc-title">Biomarker snapshot</h2>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <button id="view-shap-btn" class="hc-sparkle-btn" title="View SHAP explanation">
-                            <i class="fa-solid fa-star-of-life"></i>
-                        </button>
-                        <span style="font-size: 0.65rem; color: var(--lt-muted); margin-top: 4px; cursor: pointer;" onclick="document.getElementById('view-shap-btn').click()">Risk Impact</span>
-                    </div>
                 </div>
                 <div class="bio-snapshot-body">
                     <div class="bio-rings-wrap">
@@ -423,6 +420,22 @@
                 </div>
             </div>
 
+            <!-- RISK CONTRIBUTION ANALYSIS (SHAP) -->
+            <div class="hc" id="shap-card" style="margin-top: 1.25rem;">
+                <div class="hc-row-space" style="margin-bottom:.5rem;">
+                    <div style="display:flex;align-items:center;gap:.6rem;">
+                        <i class="fa-solid fa-chart-line" style="color:#7C71D9;"></i>
+                        <h2 class="hc-title" style="margin:0;">Risk Impact (SHAP)</h2>
+                    </div>
+                </div>
+                <p style="font-size:.75rem;color:var(--lt-muted);margin-bottom:1rem;">
+                    How your biomarkers shift CVD risk from the baseline (<span id="shap-base-val" style="font-weight:600;">--%</span>).
+                </p>
+                <div class="shap-chart" id="shap-chart-container">
+                    <p class='text-center text-xs text-muted py-4' style="color:var(--lt-muted);">Generate a prediction to see risk impact.</p>
+                </div>
+            </div>
+
             <!-- CLINICAL PROFILE (all 9 intake model inputs) -->
             <div class="hc hc-profile" id="clinical-profile-card">
                 <div class="hc-row-space" style="margin-bottom:.9rem;">
@@ -507,29 +520,7 @@
     </div><!-- /.dh-body -->
 </section>
 
-<!-- ══════════════════════════════════════════════
-     SHAP MODAL
-══════════════════════════════════════════════════ -->
-<div id="shap-modal" class="modal-overlay hidden">
-    <div class="shap-modal-card">
-        <div class="shap-modal-header">
-            <div style="display:flex;align-items:center;gap:.6rem;">
-                <i class="fa-solid fa-chart-line" style="color:#7C71D9;"></i>
-                <h2 style="font-size:1.05rem;font-weight:700;color:#111;">Risk Contribution Analysis (SHAP)</h2>
-            </div>
-            <button id="close-modal-btn" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#999;">&times;</button>
-        </div>
-        <div style="padding:1.25rem 0;">
-            <p style="font-size:.8rem;color:#888;margin-bottom:1rem;">
-                How your biomarkers shift CVD risk from the population baseline (<span id="shap-base-val">--%</span>).
-            </p>
-            <div class="shap-chart" id="shap-chart-container"></div>
-        </div>
-        <div style="border-top:1px solid #F0F0F0;padding-top:.85rem;display:flex;justify-content:flex-end;">
-            <button id="close-modal-footer-btn" style="background:#F5F5F5;border:none;padding:.5rem 1.2rem;border-radius:8px;font-size:.85rem;cursor:pointer;font-weight:600;">Close</button>
-        </div>
-    </div>
-</div>
+
 
 <script src="app.js?v=11"></script>
 </body>
