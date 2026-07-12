@@ -14,8 +14,14 @@ class PatientIntakeBase(BaseModel):
     prevalent_hyp: bool | None = Field(None, description="Has history of hypertension")
     diabetes: bool | None = Field(None, description="Has diabetes")
     doctors_prescription: str | None = Field(None, description="Current doctors prescription notes")
-
-
+    
+    # Optional Manual Biomarkers
+    fasting_glucose: float | None = None
+    total_cholesterol: float | None = None
+    systolic_bp: float | None = None
+    diastolic_bp: float | None = None
+    bmi: float | None = None
+    heart_rate: float | None = None
 class PatientIntakeCreate(PatientIntakeBase):
     """Request body for creating/updating patient intake clinical history."""
     pass

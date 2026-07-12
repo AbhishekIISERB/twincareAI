@@ -184,6 +184,38 @@
                             <label for="intake-prescription"><i class="fa-solid fa-user-doctor"></i> Doctor's Notes on Status & Prescription</label>
                             <input type="text" id="intake-prescription" placeholder="e.g. High BP, prescribed Metformin">
                         </div>
+
+                        <div class="col-span-2 mt-4 mb-2">
+                            <h3 style="font-size: 1.1rem; color: var(--lt-text); font-weight: 600; border-bottom: 1px solid var(--lt-border); padding-bottom: 8px;">
+                                <i class="fa-solid fa-vial" style="color:var(--lt-purple)"></i> Manual Biomarker Entry (Optional)
+                            </h3>
+                            <p style="font-size: 0.85rem; color: var(--lt-muted); margin-top: 4px;">If you cannot upload a PDF, enter your blood test values here to generate predictions.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="intake-glucose">Fasting Glucose (mg/dL)</label>
+                            <input type="number" step="0.1" id="intake-glucose" placeholder="e.g. 95.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="intake-cholesterol">Total Cholesterol (mg/dL)</label>
+                            <input type="number" step="0.1" id="intake-cholesterol" placeholder="e.g. 180.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="intake-sys-bp">Systolic BP (mmHg)</label>
+                            <input type="number" step="0.1" id="intake-sys-bp" placeholder="e.g. 120.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="intake-dia-bp">Diastolic BP (mmHg)</label>
+                            <input type="number" step="0.1" id="intake-dia-bp" placeholder="e.g. 80.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="intake-bmi">BMI (kg/m²)</label>
+                            <input type="number" step="0.1" id="intake-bmi" placeholder="e.g. 24.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="intake-hr">Heart Rate (bpm)</label>
+                            <input type="number" step="0.1" id="intake-hr" placeholder="e.g. 72.0">
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-full mt-6" style="padding:0.85rem;font-size:1rem;border-radius:0.75rem;">
                         Save &amp; Open Dashboard <i class="fa-solid fa-arrow-right-to-bracket"></i>

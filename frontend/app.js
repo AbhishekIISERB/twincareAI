@@ -245,7 +245,13 @@ intakeForm.addEventListener("submit", async (e) => {
         prevalent_stroke: document.getElementById("intake-stroke").value === "true",
         prevalent_hyp: document.getElementById("intake-hyp").value === "true",
         diabetes: document.getElementById("intake-diabetes").value === "true",
-        doctors_prescription: document.getElementById("intake-prescription").value
+        doctors_prescription: document.getElementById("intake-prescription").value,
+        fasting_glucose: document.getElementById("intake-glucose").value ? parseFloat(document.getElementById("intake-glucose").value) : null,
+        total_cholesterol: document.getElementById("intake-cholesterol").value ? parseFloat(document.getElementById("intake-cholesterol").value) : null,
+        systolic_bp: document.getElementById("intake-sys-bp").value ? parseFloat(document.getElementById("intake-sys-bp").value) : null,
+        diastolic_bp: document.getElementById("intake-dia-bp").value ? parseFloat(document.getElementById("intake-dia-bp").value) : null,
+        bmi: document.getElementById("intake-bmi").value ? parseFloat(document.getElementById("intake-bmi").value) : null,
+        heart_rate: document.getElementById("intake-hr").value ? parseFloat(document.getElementById("intake-hr").value) : null
     };
 
     try {
@@ -286,6 +292,12 @@ document.getElementById("edit-intake-btn").addEventListener("click", async () =>
         document.getElementById("intake-hyp").value = data.prevalent_hyp ? "true" : "false";
         document.getElementById("intake-diabetes").value = data.diabetes ? "true" : "false";
         document.getElementById("intake-prescription").value = data.doctors_prescription || "";
+        document.getElementById("intake-glucose").value = data.fasting_glucose || "";
+        document.getElementById("intake-cholesterol").value = data.total_cholesterol || "";
+        document.getElementById("intake-sys-bp").value = data.systolic_bp || "";
+        document.getElementById("intake-dia-bp").value = data.diastolic_bp || "";
+        document.getElementById("intake-bmi").value = data.bmi || "";
+        document.getElementById("intake-hr").value = data.heart_rate || "";
 
         // Trigger toggles
         if (data.current_smoker) {
